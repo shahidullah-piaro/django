@@ -1,0 +1,38 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+{% block title %} Show Books {% endblock %} 
+{% block content %}
+<div style="width: 50%; margin: auto">
+  {% if books %}
+  <table class="table table-striped">
+    <h2>Books Available In Store</h2>
+    <thead>
+      <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">Book</th>
+        <th scope="col">Author</th>
+        <th scope="col">Category</th>
+        <th scope="col">First Publication</th>
+        <th scope="col">Last Publication</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>{{book.id}}</td>
+        <td>{{book.book_name}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.category}}</td>
+        <td>{{book.first_pub}}</td>
+        <td>{{book.last_pub}}</td>
+        <td><a class="btn btn-warning btn-sm" href="{% url 'edit_book' id=book.id %}">Edit</a><a class="btn btn-danger btn-sm" href="{% url 'delete_book' id=book.id %}">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h2>No Books Available In Store</h2>
+  {% endif %}
+</div>
+{% endblock %}
