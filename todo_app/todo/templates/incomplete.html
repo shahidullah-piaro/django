@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+{% block title %} Task {% endblock %} 
+{% block content %}
+<div style="width: 70%; margin: auto">
+  {% if tasks %}
+  <table class="table table-striped">
+    <h2>Task</h2>
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Complete</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{ task.taskTitle }}</td>
+        <td>{{ task.taskDescription }}</td>
+        <td>{% if task.is_completed %}Completed{% else %}Incompleted{% endif %}</td>
+        <td><a class="btn btn-success btn-sm" href="{% url 'mark_completed' task_id=task.id %}">Complete</a></td>
+        <td><a class="btn btn-warning btn-sm" href="{% url 'update_task' task_id=task.id %}">Update</a></td>
+        <td><a class="btn btn-danger btn-sm" href="{% url 'delete_task' task_id=task.id %}">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h2>No Task Available</h2>
+  {% endif %}
+</div>
+{% endblock %}
